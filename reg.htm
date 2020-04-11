@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#name
+{
+	
+}
+#pass
+{
+
+}
+#reg
+{
+
+}
+</style>
+</head>
+<body>
+<textarea id="name" row="1">name </textarea>
+<textarea id="pass" row="1">password </textarea>
+<button id="reg">add</button>
+<script type="module">
+
+</script>
+<script>
+const client = new WebSocket("ws://127.0.0.1:8000");
+// listening to the button clicks
+document.getElementById("reg").addEventListener("click", function()
+{
+console.log("message");
+	var name = document.getElementById("name").value;
+	var pass = document.getElementById("pass").value;
+	
+	var msg = {
+	type: "new-user",
+		name1: name,
+		pass1: pass
+	};
+	// sending a message to the server
+	client.send(JSON.stringify(msg));
+})
+
+		// run this function when a connection is formed
+		client.onopen = () =>
+		{
+			console.log("connected");
+			
+		};
+		//run this function when you recieve a message from the server
+		client.onmessage = (message) => 
+		{
+			console.log(message);
+		};
+	
+</script>
+</body>
+</html>
